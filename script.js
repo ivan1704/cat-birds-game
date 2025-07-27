@@ -360,7 +360,7 @@ function handleKeyPress(event) {
     if (gameState === 'gameOver') {
         if (event.code === 'Space') {
             welcomeStep = 1;
-            showCharacterSelection();
+            showTapToStart();
         }
         return;
     }
@@ -437,7 +437,59 @@ function showMenu() {
     gameState = 'menu';
     resetGame();
     draw();
-    showCharacterSelection();
+    showTapToStart();
+}
+
+// Show simple tap to start screen
+function showTapToStart() {
+    gameMessage.innerHTML = `
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 20px;">
+            <h1 style="color: #FFFFFF; font-size: 2.5rem; font-weight: 800; text-shadow: 0 3px 6px rgba(0, 0, 0, 1); margin-bottom: 20px; text-align: center;">
+                🐱 Cat & Birds
+            </h1>
+            <p style="color: #FFFFFF; font-size: 1.2rem; font-weight: 600; text-shadow: 0 2px 4px rgba(0, 0, 0, 1); margin-bottom: 30px; text-align: center;">
+                A fun snake game with cats!
+            </p>
+            <button id="tapToStartBtn" style="
+                background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
+                border: 3px solid rgba(255, 255, 255, 0.4);
+                color: #FFFFFF;
+                font-size: 1.5rem;
+                font-weight: 700;
+                padding: 20px 40px;
+                border-radius: 25px;
+                cursor: pointer;
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+                box-shadow: 0 8px 20px rgba(0, 122, 255, 0.3);
+                transition: all 0.3s ease;
+                outline: none;
+                min-width: 200px;
+            ">
+                🎮 Tap to Start
+            </button>
+        </div>
+    `;
+    
+    // Add event listener to the tap to start button
+    const tapBtn = gameMessage.querySelector('#tapToStartBtn');
+    tapBtn.addEventListener('click', () => {
+        welcomeStep = 1;
+        showCharacterSelection();
+        hapticFeedback([10]);
+    });
+    
+    // Add hover effect for desktop
+    tapBtn.addEventListener('mouseenter', () => {
+        tapBtn.style.transform = 'scale(1.05)';
+        tapBtn.style.boxShadow = '0 12px 30px rgba(0, 122, 255, 0.4)';
+    });
+    
+    tapBtn.addEventListener('mouseleave', () => {
+        tapBtn.style.transform = 'scale(1)';
+        tapBtn.style.boxShadow = '0 8px 20px rgba(0, 122, 255, 0.3)';
+    });
+    
+    gameOverlay.classList.remove('hidden');
 }
 
 // Show overlay with message
@@ -457,7 +509,7 @@ function showOverlay(title, message, buttonText) {
         newBtn.addEventListener('click', () => {
             if (gameState === 'gameOver') {
                 welcomeStep = 1; // Reset to first step
-                showCharacterSelection();
+                showTapToStart();
             } else if (gameState === 'paused') {
                 togglePause();
             }
@@ -1726,7 +1778,7 @@ window.addEventListener('load', () => {
     // Always show character selection first
     gameState = 'menu';
     welcomeStep = 1;
-    showCharacterSelection();
+    showTapToStart();
 });
 
 // Prevent arrow keys from scrolling the page
