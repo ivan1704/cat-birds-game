@@ -442,8 +442,20 @@ function showMenu() {
 
 // Show simple tap to start screen
 function showTapToStart() {
+    console.log('showTapToStart called'); // Debug log
+    
+    if (!gameMessage) {
+        console.error('gameMessage element not found');
+        return;
+    }
+    
+    if (!gameOverlay) {
+        console.error('gameOverlay element not found');
+        return;
+    }
+    
     gameMessage.innerHTML = `
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 20px;">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 20px; background: rgba(0, 0, 0, 0.9); border-radius: 15px;">
             <h1 style="color: #FFFFFF; font-size: 2.5rem; font-weight: 800; text-shadow: 0 3px 6px rgba(0, 0, 0, 1); margin-bottom: 20px; text-align: center;">
                 🐱 Cat & Birds
             </h1>
@@ -470,26 +482,122 @@ function showTapToStart() {
         </div>
     `;
     
+    // Show the overlay - force visibility
+    gameOverlay.style.display = 'flex';
+    gameOverlay.style.opacity = '1';
+    gameOverlay.style.pointerEvents = 'auto';
+    gameOverlay.style.visibility = 'visible';
+    gameOverlay.classList.remove('hidden');
+    console.log('Overlay should be visible now', gameOverlay.style.display); // Debug log
+    
     // Add event listener to the tap to start button
     const tapBtn = gameMessage.querySelector('#tapToStartBtn');
-    tapBtn.addEventListener('click', () => {
+    if (tapBtn) {
+        tapBtn.addEventListener('click', () => {
+            console.log('Tap to start clicked'); // Debug log
+            welcomeStep = 1;
+            showCharacterSelection();
+            hapticFeedback([10]);
+        });
+        
+        // Add hover effect for desktop
+        tapBtn.addEventListener('mouseenter', () => {
+            tapBtn.style.transform = 'scale(1.05)';
+            tapBtn.style.boxShadow = '0 12px 30px rgba(0, 122, 255, 0.4)';
+        });
+        
+        tapBtn.addEventListener('mouseleave', () => {
+            tapBtn.style.transform = 'scale(1)';
+            tapBtn.style.boxShadow = '0 8px 20px rgba(0, 122, 255, 0.3)';
+        });
+    } else {
+        console.error('tapToStartBtn not found after setting innerHTML');
+    }
+}
+
+// Fallback button creation
+function createFallbackButton() {
+    const gameArea = document.querySelector('.game-area');
+    if (!gameArea) {
+        console.error('Game area not found');
+        return;
+    }
+    
+    // Create button container
+    const buttonContainer = document.createElement('div');
+    buttonContainer.style.cssText = `
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.9);
+        padding: 30px;
+        border-radius: 15px;
+        border: 3px solid rgba(255, 255, 255, 0.4);
+    `;
+    
+    // Create title
+    const title = document.createElement('h1');
+    title.style.cssText = `
+        color: #FFFFFF;
+        font-size: 2rem;
+        font-weight: 800;
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 1);
+        margin-bottom: 15px;
+        text-align: center;
+        margin: 0 0 15px 0;
+    `;
+    title.innerHTML = '🐱 Cat & Birds';
+    
+    // Create button
+    const button = document.createElement('button');
+    button.id = 'fallbackStartBtn';
+    button.style.cssText = `
+        background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
+        border: 3px solid rgba(255, 255, 255, 0.4);
+        color: #FFFFFF;
+        font-size: 1.5rem;
+        font-weight: 700;
+        padding: 20px 40px;
+        border-radius: 25px;
+        cursor: pointer;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        box-shadow: 0 8px 20px rgba(0, 122, 255, 0.3);
+        transition: all 0.3s ease;
+        outline: none;
+        min-width: 200px;
+    `;
+    button.innerHTML = '🎮 Tap to Start';
+    
+    // Add click handler
+    button.addEventListener('click', () => {
+        console.log('Fallback button clicked');
+        buttonContainer.remove();
         welcomeStep = 1;
         showCharacterSelection();
         hapticFeedback([10]);
     });
     
-    // Add hover effect for desktop
-    tapBtn.addEventListener('mouseenter', () => {
-        tapBtn.style.transform = 'scale(1.05)';
-        tapBtn.style.boxShadow = '0 12px 30px rgba(0, 122, 255, 0.4)';
+    // Add hover effects
+    button.addEventListener('mouseenter', () => {
+        button.style.transform = 'scale(1.05)';
     });
     
-    tapBtn.addEventListener('mouseleave', () => {
-        tapBtn.style.transform = 'scale(1)';
-        tapBtn.style.boxShadow = '0 8px 20px rgba(0, 122, 255, 0.3)';
+    button.addEventListener('mouseleave', () => {
+        button.style.transform = 'scale(1)';
     });
     
-    gameOverlay.classList.remove('hidden');
+    // Append to DOM
+    buttonContainer.appendChild(title);
+    buttonContainer.appendChild(button);
+    gameArea.appendChild(buttonContainer);
+    
+    console.log('Fallback button created and added to DOM');
 }
 
 // Show overlay with message
@@ -1772,13 +1880,27 @@ function drawMenuBackground() {
 
 // Initialize the game when page loads
 window.addEventListener('load', () => {
+    console.log('Page loaded, starting initialization'); // Debug log
     init();
     animate();
     
     // Always show character selection first
     gameState = 'menu';
     welcomeStep = 1;
-    showTapToStart();
+    
+    // Wait a bit for DOM to be fully ready
+    setTimeout(() => {
+        console.log('Calling showTapToStart'); // Debug log
+        showTapToStart();
+        
+        // Fallback: If overlay doesn't work, add button to canvas container
+        setTimeout(() => {
+            if (!document.querySelector('#tapToStartBtn')) {
+                console.log('Creating fallback button');
+                createFallbackButton();
+            }
+        }, 500);
+    }, 100);
 });
 
 // Prevent arrow keys from scrolling the page
