@@ -61,6 +61,9 @@ function init() {
     // Touch controls
     initTouchControls();
     
+    // Swipe gesture controls
+    initSwipeControls();
+    
     // Make canvas focusable for better keyboard handling
     canvas.tabIndex = 1;
     canvas.focus();
@@ -197,6 +200,60 @@ function handleTouchDirection(dir) {
         case 'right':
             if (direction.x !== -1) direction = {x: 1, y: 0};
             break;
+    }
+}
+
+// Swipe gesture detection
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+
+function initSwipeControls() {
+    const gameArea = document.querySelector('.game-area') || document.body;
+    
+    gameArea.addEventListener('touchstart', (e) => {
+        if (gameState !== 'playing') return;
+        
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+    
+    gameArea.addEventListener('touchend', (e) => {
+        if (gameState !== 'playing') return;
+        
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+        
+        handleSwipeGesture();
+    }, { passive: true });
+}
+
+function handleSwipeGesture() {
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+    const minSwipeDistance = 30; // Minimum distance for a swipe
+    
+    // Check if the swipe distance is significant enough
+    if (Math.abs(deltaX) < minSwipeDistance && Math.abs(deltaY) < minSwipeDistance) {
+        return; // Not a swipe, just a tap
+    }
+    
+    // Determine swipe direction
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Horizontal swipe
+        if (deltaX > 0) {
+            handleTouchDirection('right');
+        } else {
+            handleTouchDirection('left');
+        }
+    } else {
+        // Vertical swipe
+        if (deltaY > 0) {
+            handleTouchDirection('down');
+        } else {
+            handleTouchDirection('up');
+        }
     }
 }
 
