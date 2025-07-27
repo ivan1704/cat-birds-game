@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: cat-birds-game
+    env: static
+    buildCommand: echo "Static site - no build required"
+    startCommand: python3 -m http.server $PORT
+    envVars:
+      - key: PORT
+        value: 10000
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html 

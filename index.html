@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Cat & Birds">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#667eea">
+    <meta name="color-scheme" content="dark light">
+    
+    <!-- iOS App Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE4MCIgaGVpZ2h0PSIxODAiIHJ4PSI0MCIgZmlsbD0iIzY2N2VlYSIvPjx0ZXh0IHg9IjkwIiB5PSIxMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI2MCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPvCQkK88L3RleHQ+PC9zdmc+">
+    
+    <!-- Manifest for PWA -->
+    <link rel="manifest" href="manifest.json">
+    
+    <title>Cat & Birds - iOS Game</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+</head>
+<body>
+    <!-- iOS Safe Area Container -->
+    <div class="ios-safe-container">
+        <!-- Game Header with iOS styling -->
+        <header class="game-header" role="banner">
+            <h1 class="game-title">
+                <span class="title-icon" aria-hidden="true">🐱</span>
+                <span class="title-text">Cat & Birds</span>
+            </h1>
+            
+            <!-- Score Container with iOS styling -->
+            <div class="score-container" role="complementary" aria-label="Game Statistics">
+                <div class="score-card">
+                    <div class="score-label" aria-label="Current Score">Score</div>
+                    <div id="score" class="score-value" aria-live="polite">0</div>
+                </div>
+                <div class="score-card">
+                    <div class="score-label" aria-label="Best Score">Best</div>
+                    <div id="high-score" class="score-value" aria-live="polite">0</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Game Area -->
+        <main class="game-main" role="main">
+            <div class="game-area">
+                <canvas id="gameCanvas" 
+                        width="400" 
+                        height="540" 
+                        role="img" 
+                        aria-label="Game playing field">
+                    <p>Your browser doesn't support HTML5 Canvas. Please update your browser to play this game.</p>
+                </canvas>
+                
+                <!-- Game Overlay for menus -->
+                <div id="gameOverlay" class="game-overlay" role="dialog" aria-modal="true">
+                    <div id="gameMessage" class="game-message" tabindex="-1">
+                        <!-- Content will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- iOS Touch Controls -->
+            <div class="touch-controls" role="group" aria-label="Game Controls">
+                <div class="controls-container">
+                    <!-- D-Pad -->
+                    <div class="d-pad" role="group" aria-label="Direction Controls">
+                        <button class="touch-button d-up" 
+                                data-direction="up" 
+                                aria-label="Move Up"
+                                type="button">
+                            <span aria-hidden="true">↑</span>
+                        </button>
+                        <div class="d-middle">
+                            <button class="touch-button d-left" 
+                                    data-direction="left" 
+                                    aria-label="Move Left"
+                                    type="button">
+                                <span aria-hidden="true">←</span>
+                            </button>
+                            <button class="touch-button d-right" 
+                                    data-direction="right" 
+                                    aria-label="Move Right"
+                                    type="button">
+                                <span aria-hidden="true">→</span>
+                            </button>
+                        </div>
+                        <button class="touch-button d-down" 
+                                data-direction="down" 
+                                aria-label="Move Down"
+                                type="button">
+                            <span aria-hidden="true">↓</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Action Button -->
+                    <button class="touch-button action-button" 
+                            id="pauseBtn" 
+                            aria-label="Pause Game"
+                            type="button">
+                        <span aria-hidden="true">⏸</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Game Instructions (Hidden by default, screen reader accessible) -->
+        <div class="sr-only" role="region" aria-label="Game Instructions">
+            <h2>How to Play</h2>
+            <ul>
+                <li>Choose your cat character and game speed</li>
+                <li>Control your cat using swipe gestures or arrow keys</li>
+                <li>Catch birds to grow and earn points</li>
+                <li>Avoid dogs that guard the birds</li>
+                <li>Collect tuna cans for bonus points</li>
+                <li>Try to beat your high score!</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Performance and Error Monitoring -->
+    <script>
+        // iOS-specific error handling
+        window.addEventListener('error', function(e) {
+            console.error('Game Error:', e.error);
+            // Could integrate with crash reporting service
+        });
+        
+        // Performance monitoring
+        if ('performance' in window) {
+            window.addEventListener('load', function() {
+                setTimeout(function() {
+                    const perfData = performance.getEntriesByType('navigation')[0];
+                    console.log('Load time:', perfData.loadEventEnd - perfData.loadEventStart);
+                }, 0);
+            });
+        }
+    </script>
+    
+    <script src="script.js"></script>
+</body>
+</html> 

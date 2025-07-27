@@ -1,0 +1,16 @@
+{
+  "name": "cat-birds-game",
+  "version": "1.0.0",
+  "description": "A modern Snake game featuring cats chasing birds, optimized for mobile devices",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server $PORT",
+    "dev": "python3 -m http.server 8000"
+  },
+  "keywords": ["game", "snake", "mobile", "pwa", "ios", "cat"],
+  "author": "Your Name",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+} 

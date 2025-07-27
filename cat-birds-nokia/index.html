@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nokia-label">NOKIA 3310</div>
+    <div class="game-container">
+        <div class="game-header">
+            <h1>CAT & BIRDS</h1>
+            <div class="score-container">
+                <div class="score">Score: <span id="score">0</span></div>
+                <div class="high-score">High Score: <span id="high-score">0</span></div>
+            </div>
+        </div>
+        
+        <div class="game-main">
+            <div class="game-area">
+                <canvas id="gameCanvas" width="240" height="180"></canvas>
+                <div class="game-overlay" id="gameOverlay">
+                    <div class="game-message" id="gameMessage">
+                        <h2>Welcome to Cat & Birds!</h2>
+                        <p>Use arrow keys to control the cat</p>
+                        <p>Catch the birds to grow and increase your score</p>
+                        <button id="startBtn" class="game-btn">Start Game</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="speed-control">
+                <h3>🚀 Speed Control</h3>
+                <div class="speed-slider-container">
+                    <label for="speedSlider">Speed: <span id="speedValue">5</span></label>
+                    <input type="range" id="speedSlider" min="1" max="10" value="5" class="slider">
+                    <div class="speed-labels">
+                        <span>Slow</span>
+                        <span>Fast</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls-info">
+            <div class="control-item">
+                <span class="key">↑↓←→</span>
+                <span>Move Cat</span>
+            </div>
+            <div class="control-item">
+                <span class="key">Space</span>
+                <span>Pause/Resume</span>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html> 

@@ -1,0 +1,2 @@
+# No external dependencies required for this static site
+# Using Python's built-in http.server 
