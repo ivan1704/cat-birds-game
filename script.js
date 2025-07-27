@@ -1,4 +1,5 @@
-// Game variables
+// Game variables - SCRIPT UPDATED AT 2024-07-27 10:30
+console.log('Script loaded - version with override functions active');
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const scoreElement = document.getElementById('score');
@@ -493,7 +494,8 @@ function showTapToStart() {
     const tapBtn = gameMessage.querySelector('#tapToStartBtn');
     if (tapBtn) {
         tapBtn.addEventListener('click', () => {
-            console.log('Tap to start clicked - going directly to game'); // Debug log
+            console.log('!!! TAP TO START CLICKED - SHOULD GO DIRECTLY TO GAME'); // Debug log
+            alert('Tap to start clicked - starting game directly!');
             startGame();
             hapticFeedback([10]);
         });
@@ -627,7 +629,8 @@ function showOverlay(title, message, buttonText) {
 
 // Override character selection to go directly to game
 function showCharacterSelection() {
-    console.log('showCharacterSelection called - redirecting to startGame');
+    console.log('!!! OVERRIDE FUNCTION ACTIVE - showCharacterSelection called - redirecting to startGame');
+    alert('Character selection was called but redirecting to game!');
     startGame();
 }
 
