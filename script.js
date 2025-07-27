@@ -18,7 +18,7 @@ const GRID_COUNT_Y = CANVAS_HEIGHT / GRID_SIZE;
 
 // Game state
 let gameState = 'menu'; // 'menu', 'playing', 'paused', 'gameOver'
-let welcomeStep = 1; // Welcome screen step: 1=character, 2=speed, 3=instructions
+// let welcomeStep = 1; // Welcome screen step: 1=character, 2=speed, 3=instructions (commented out - no longer needed)
 let snake = [{x: 10, y: 10}];
 let food = {x: 5, y: 5};
 let direction = {x: 0, y: 0};
@@ -67,9 +67,9 @@ function init() {
     // Initialize speed display
     updateSpeedDisplay();
     
-    // Always start with menu state - character selection will be shown in window load
+    // Always start with menu state
     gameState = 'menu';
-    welcomeStep = 1;
+    // welcomeStep = 1; // Commented out - no longer needed
 }
 
 // iOS-specific features setup
@@ -359,7 +359,6 @@ function handleKeyPress(event) {
     
     if (gameState === 'gameOver') {
         if (event.code === 'Space') {
-            welcomeStep = 1;
             showTapToStart();
         }
         return;
@@ -495,8 +494,7 @@ function showTapToStart() {
     if (tapBtn) {
         tapBtn.addEventListener('click', () => {
             console.log('Tap to start clicked'); // Debug log
-            welcomeStep = 1;
-            showCharacterSelection();
+            startGame();
             hapticFeedback([10]);
         });
         
@@ -578,8 +576,7 @@ function createFallbackButton() {
     button.addEventListener('click', () => {
         console.log('Fallback button clicked');
         buttonContainer.remove();
-        welcomeStep = 1;
-        showCharacterSelection();
+        startGame();
         hapticFeedback([10]);
     });
     
@@ -603,8 +600,7 @@ function createFallbackButton() {
 // Show overlay with message
 function showOverlay(title, message, buttonText) {
     if (gameState === 'menu') {
-        welcomeStep = 1; // Reset to first step
-        showCharacterSelection();
+        startGame();
     } else {
         gameMessage.innerHTML = `
             <h2>${title}</h2>
@@ -616,7 +612,6 @@ function showOverlay(title, message, buttonText) {
         const newBtn = gameMessage.querySelector('#startBtn');
         newBtn.addEventListener('click', () => {
             if (gameState === 'gameOver') {
-                welcomeStep = 1; // Reset to first step
                 showTapToStart();
             } else if (gameState === 'paused') {
                 togglePause();
@@ -627,7 +622,9 @@ function showOverlay(title, message, buttonText) {
     gameOverlay.classList.remove('hidden');
 }
 
-// Multi-step welcome flow
+// Character and speed selection functions moved to future-features/character-speed-selection.js
+// Multi-step welcome flow commented out for faster game start
+/*
 const totalSteps = 3;
 
 // Show step-by-step welcome sequence
@@ -640,7 +637,9 @@ function showCharacterSelection() {
         showStep3_Instructions();
     }
 }
+*/
 
+/*
 // Step 1: Character Selection
 function showStep1_CharacterSelection() {
     gameMessage.innerHTML = `
@@ -963,6 +962,7 @@ function setupStep3Instructions() {
         hapticFeedback([10, 20]);
     });
 }
+*/
 
 // Hide overlay
 function hideOverlay() {
@@ -1890,9 +1890,8 @@ window.addEventListener('load', () => {
         init();
         animate();
         
-        // Always show character selection first
+        // Always show tap to start first
         gameState = 'menu';
-        welcomeStep = 1;
         
         // Wait a bit for DOM to be fully ready
         setTimeout(() => {
