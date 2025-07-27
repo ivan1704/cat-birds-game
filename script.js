@@ -493,7 +493,7 @@ function showTapToStart() {
     const tapBtn = gameMessage.querySelector('#tapToStartBtn');
     if (tapBtn) {
         tapBtn.addEventListener('click', () => {
-            console.log('Tap to start clicked'); // Debug log
+            console.log('Tap to start clicked - going directly to game'); // Debug log
             startGame();
             hapticFeedback([10]);
         });
@@ -637,9 +637,7 @@ function showCharacterSelection() {
         showStep3_Instructions();
     }
 }
-*/
 
-/*
 // Step 1: Character Selection
 function showStep1_CharacterSelection() {
     gameMessage.innerHTML = `
