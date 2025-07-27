@@ -353,15 +353,14 @@ function isSnakePosition(x, y) {
 function handleKeyPress(event) {
     
     if (gameState === 'menu') {
-        if (event.code === 'Space') {
-            startGame();
-        }
+        // No keyboard shortcuts needed in menu - use UI buttons
         return;
     }
     
     if (gameState === 'gameOver') {
         if (event.code === 'Space') {
-            showMenu();
+            welcomeStep = 1;
+            showCharacterSelection();
         }
         return;
     }
@@ -1727,7 +1726,7 @@ window.addEventListener('load', () => {
     // Always show character selection first
     gameState = 'menu';
     welcomeStep = 1;
-    showOverlay('Welcome', 'Welcome to Cat & Birds!', 'Start');
+    showCharacterSelection();
 });
 
 // Prevent arrow keys from scrolling the page
