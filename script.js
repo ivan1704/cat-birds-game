@@ -987,20 +987,24 @@ function calculateDelay() {
 
 // Update speed from slider
 function updateSpeed() {
-    currentSpeed = parseInt(speedSlider.value);
-    updateSpeedDisplay();
-    
-    // If game is running, restart the loop with new speed
-    if (gameState === 'playing') {
-        clearInterval(gameLoop);
-        const delay = calculateDelay();
-        gameLoop = setInterval(update, delay);
+    if (speedSlider) {
+        currentSpeed = parseInt(speedSlider.value);
+        updateSpeedDisplay();
+        
+        // If game is running, restart the loop with new speed
+        if (gameState === 'playing') {
+            clearInterval(gameLoop);
+            const delay = calculateDelay();
+            gameLoop = setInterval(update, delay);
+        }
     }
 }
 
 // Update speed display
 function updateSpeedDisplay() {
-    speedValueElement.textContent = currentSpeed;
+    if (speedValueElement) {
+        speedValueElement.textContent = currentSpeed;
+    }
 }
 
 // Draw a bigger, cuter cat (20x20 pixels - fills entire grid cell!)
@@ -1881,26 +1885,40 @@ function drawMenuBackground() {
 // Initialize the game when page loads
 window.addEventListener('load', () => {
     console.log('Page loaded, starting initialization'); // Debug log
-    init();
-    animate();
     
-    // Always show character selection first
-    gameState = 'menu';
-    welcomeStep = 1;
-    
-    // Wait a bit for DOM to be fully ready
-    setTimeout(() => {
-        console.log('Calling showTapToStart'); // Debug log
-        showTapToStart();
+    try {
+        init();
+        animate();
         
-        // Fallback: If overlay doesn't work, add button to canvas container
+        // Always show character selection first
+        gameState = 'menu';
+        welcomeStep = 1;
+        
+        // Wait a bit for DOM to be fully ready
         setTimeout(() => {
-            if (!document.querySelector('#tapToStartBtn')) {
-                console.log('Creating fallback button');
+            console.log('Calling showTapToStart'); // Debug log
+            try {
+                showTapToStart();
+            } catch (error) {
+                console.error('Error in showTapToStart:', error);
                 createFallbackButton();
             }
-        }, 500);
-    }, 100);
+            
+            // Fallback: If overlay doesn't work, add button to canvas container
+            setTimeout(() => {
+                if (!document.querySelector('#tapToStartBtn') && !document.querySelector('#fallbackStartBtn')) {
+                    console.log('Creating fallback button');
+                    createFallbackButton();
+                }
+            }, 500);
+        }, 100);
+    } catch (error) {
+        console.error('Initialization error:', error);
+        // Force create fallback button if everything fails
+        setTimeout(() => {
+            createFallbackButton();
+        }, 1000);
+    }
 });
 
 // Prevent arrow keys from scrolling the page
