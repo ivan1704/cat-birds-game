@@ -623,12 +623,35 @@ function showOverlay(title, message, buttonText) {
 }
 
 // Character and speed selection functions moved to future-features/character-speed-selection.js
-// Multi-step welcome flow commented out for faster game start
+// Multi-step welcome flow disabled for faster game start
+
+// Override character selection to go directly to game
+function showCharacterSelection() {
+    console.log('showCharacterSelection called - redirecting to startGame');
+    startGame();
+}
+
+// Override individual step functions to prevent errors
+function showStep1_CharacterSelection() {
+    console.log('showStep1_CharacterSelection called - redirecting to startGame');
+    startGame();
+}
+
+function showStep2_SpeedSelection() {
+    console.log('showStep2_SpeedSelection called - redirecting to startGame');
+    startGame();
+}
+
+function showStep3_Instructions() {
+    console.log('showStep3_Instructions called - redirecting to startGame');
+    startGame();
+}
+
 /*
 const totalSteps = 3;
 
-// Show step-by-step welcome sequence
-function showCharacterSelection() {
+// Original character selection function (commented out)
+function showCharacterSelection_ORIGINAL() {
     if (welcomeStep === 1) {
         showStep1_CharacterSelection();
     } else if (welcomeStep === 2) {
