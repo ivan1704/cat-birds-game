@@ -1363,7 +1363,11 @@ function spawnTunaCan() {
         const y = Math.floor(Math.random() * GRID_COUNT_Y);
         
         if (!isTunaPositionOccupied(x, y)) {
-            const tunaTimer = Math.floor(5000 / calculateDelay()); // 5 seconds worth of frames
+            // Make tuna display time speed-dependent for fairness
+            // Slower speeds get more time, faster speeds get less time
+            // Base time: 8 seconds for speed 1, 3 seconds for speed 10
+            const baseTimeMs = Math.max(3000, 8000 - (currentSpeed * 500)); // 8000ms to 3000ms
+            const tunaTimer = Math.floor(baseTimeMs / calculateDelay());
             tunaCans.push({ x, y, timer: tunaTimer });
             return;
         }
