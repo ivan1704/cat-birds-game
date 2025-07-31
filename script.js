@@ -551,9 +551,8 @@ function showTapToStart() {
     const tapBtn = gameMessage.querySelector('#tapToStartBtn');
     if (tapBtn) {
         tapBtn.addEventListener('click', () => {
-            console.log('!!! TAP TO START CLICKED - SHOULD GO DIRECTLY TO GAME'); // Debug log
-            alert('Tap to start clicked - starting game directly!');
-            startGame();
+            console.log('Tap to start clicked - showing character selection');
+            showCharacterSelection();
             hapticFeedback([10]);
         });
         
@@ -681,37 +680,12 @@ function showOverlay(title, message, buttonText) {
     gameOverlay.classList.remove('hidden');
 }
 
-// Character and speed selection functions moved to future-features/character-speed-selection.js
-// Multi-step welcome flow disabled for faster game start
-
-// Override character selection to go directly to game
-function showCharacterSelection() {
-    console.log('!!! OVERRIDE FUNCTION ACTIVE - showCharacterSelection called - redirecting to startGame');
-    alert('Character selection was called but redirecting to game!');
-    startGame();
-}
-
-// Override individual step functions to prevent errors
-function showStep1_CharacterSelection() {
-    console.log('showStep1_CharacterSelection called - redirecting to startGame');
-    startGame();
-}
-
-function showStep2_SpeedSelection() {
-    console.log('showStep2_SpeedSelection called - redirecting to startGame');
-    startGame();
-}
-
-function showStep3_Instructions() {
-    console.log('showStep3_Instructions called - redirecting to startGame');
-    startGame();
-}
-
-/*
+// Multi-step welcome flow for character and speed selection
 const totalSteps = 3;
+let welcomeStep = 1;
 
-// Original character selection function (commented out)
-function showCharacterSelection_ORIGINAL() {
+// Show step-by-step welcome sequence
+function showCharacterSelection() {
     if (welcomeStep === 1) {
         showStep1_CharacterSelection();
     } else if (welcomeStep === 2) {
@@ -721,44 +695,35 @@ function showCharacterSelection_ORIGINAL() {
     }
 }
 
-// Step 1: Character Selection
+// Step 1: Compact Character Selection (fits 390x420px)
 function showStep1_CharacterSelection() {
     gameMessage.innerHTML = `
-        <div class="welcome-container step-container">
-            <div class="step-indicator">
+        <div class="compact-welcome-container">
+            <div class="compact-step-indicator">
                 <div class="step-dot active"></div>
                 <div class="step-dot"></div>
                 <div class="step-dot"></div>
             </div>
             
-            <div class="welcome-header">
-                <h2 class="welcome-title">
+            <div class="compact-header">
+                <h2 class="compact-title">
                     <span class="title-icon">🐱</span>
                     Choose Your Cat
                 </h2>
-                <p class="welcome-subtitle">Pick the perfect feline friend for your adventure</p>
             </div>
             
-            <div class="cat-selection-section">
-                <div class="cat-grid">
-                    ${Object.entries(catTypes).map(([type, info]) => `
-                        <div class="cat-option ${selectedCat === type ? 'selected' : ''}" data-cat="${type}">
-                            <div class="cat-preview" id="preview-${type}"></div>
-                            <div class="cat-info">
-                                <div class="cat-name">${info.name}</div>
-                            </div>
-                            <div class="selection-indicator">
-                                <div class="check-icon">✓</div>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
+            <div class="compact-cat-grid">
+                ${Object.entries(catTypes).map(([type, info]) => `
+                    <div class="compact-cat-option ${selectedCat === type ? 'selected' : ''}" data-cat="${type}">
+                        <div class="compact-cat-preview" id="preview-${type}"></div>
+                        <div class="compact-cat-name">${info.name}</div>
+                    </div>
+                `).join('')}
             </div>
             
-            <div class="step-navigation">
-                <button id="nextStepBtn" class="step-btn next-btn" disabled>
-                    <span class="btn-icon">→</span>
-                    <span class="btn-text">Next: Choose Speed</span>
+            <div class="compact-navigation">
+                <button id="nextStepBtn" class="compact-btn next-btn" disabled>
+                    Next: Speed →
                 </button>
             </div>
         </div>
@@ -775,60 +740,53 @@ function showStep1_CharacterSelection() {
     setupStep1CatSelection();
 }
 
-// Step 2: Speed Selection
+
+
+// Step 2: Compact Speed Selection (fits 390x420px)
 function showStep2_SpeedSelection() {
     gameMessage.innerHTML = `
-        <div class="welcome-container step-container">
-            <div class="step-indicator">
+        <div class="compact-welcome-container">
+            <div class="compact-step-indicator">
                 <div class="step-dot completed"></div>
                 <div class="step-dot active"></div>
                 <div class="step-dot"></div>
             </div>
             
-            <div class="welcome-header">
-                <h2 class="welcome-title">
+            <div class="compact-header">
+                <h2 class="compact-title">
                     <span class="title-icon">⚡</span>
                     Pick Your Pace
                 </h2>
-                <p class="welcome-subtitle">How fast should ${catTypes[selectedCat].name} chase those birds?</p>
             </div>
             
-            <div class="speed-selection-section">
-                <div class="speed-presets">
-                    <button class="preset-btn ${currentSpeed <= 3 ? 'active' : ''}" data-speed="2">
+            <div class="compact-speed-section">
+                <div class="compact-speed-presets">
+                    <button class="compact-preset-btn ${currentSpeed <= 3 ? 'active' : ''}" data-speed="2">
                         <span class="preset-icon">😴</span>
-                        <span class="preset-name">Best Sleepy Cats</span>
-                        <span class="preset-desc">Take your time, enjoy the journey</span>
+                        <span class="preset-name">Sleepy</span>
                     </button>
-                    <button class="preset-btn ${currentSpeed >= 4 && currentSpeed <= 6 ? 'active' : ''}" data-speed="5">
+                    <button class="compact-preset-btn ${currentSpeed >= 4 && currentSpeed <= 6 ? 'active' : ''}" data-speed="5">
                         <span class="preset-icon">😸</span>
-                        <span class="preset-name">Playful Cats</span>
-                        <span class="preset-desc">Perfect balance of fun and challenge</span>
+                        <span class="preset-name">Playful</span>
                     </button>
-                    <button class="preset-btn ${currentSpeed >= 7 ? 'active' : ''}" data-speed="8">
+                    <button class="compact-preset-btn ${currentSpeed >= 7 ? 'active' : ''}" data-speed="8">
                         <span class="preset-icon">😼</span>
-                        <span class="preset-name">Hungry Cats</span>
-                        <span class="preset-desc">Fast-paced action for the brave</span>
+                        <span class="preset-name">Hungry</span>
                     </button>
                 </div>
                 
-                <div class="speed-slider-container">
-                    <label for="menuSpeedSlider">Fine-tune: <span id="menuSpeedValue">${currentSpeed}</span>/10</label>
-                    <input type="range" id="menuSpeedSlider" min="1" max="10" value="${currentSpeed}" class="slider">
-                    <div class="speed-preview">
-                        <div class="speed-indicator" style="animation-duration: ${(11 - currentSpeed) * 0.2}s"></div>
-                    </div>
+                <div class="compact-speed-slider">
+                    <label>Speed: <span id="menuSpeedValue">${currentSpeed}</span>/10</label>
+                    <input type="range" id="menuSpeedSlider" min="1" max="10" value="${currentSpeed}" class="compact-slider">
                 </div>
             </div>
             
-            <div class="step-navigation">
-                <button id="prevStepBtn" class="step-btn prev-btn">
-                    <span class="btn-icon">←</span>
-                    <span class="btn-text">Back to Cats</span>
+            <div class="compact-navigation">
+                <button id="prevStepBtn" class="compact-btn prev-btn">
+                    ← Back
                 </button>
-                <button id="nextStepBtn" class="step-btn next-btn">
-                    <span class="btn-icon">→</span>
-                    <span class="btn-text">Next: How to Play</span>
+                <button id="nextStepBtn" class="compact-btn next-btn">
+                    Next: How to Play →
                 </button>
             </div>
         </div>
@@ -837,57 +795,50 @@ function showStep2_SpeedSelection() {
     setupStep2SpeedSelection();
 }
 
-// Step 3: Instructions
+// Step 3: Compact Instructions (fits 390x420px)
 function showStep3_Instructions() {
     gameMessage.innerHTML = `
-        <div class="welcome-container step-container">
-            <div class="step-indicator">
+        <div class="compact-welcome-container">
+            <div class="compact-step-indicator">
                 <div class="step-dot completed"></div>
                 <div class="step-dot completed"></div>
                 <div class="step-dot active"></div>
             </div>
             
-            <div class="welcome-header">
-                <h2 class="welcome-title">
+            <div class="compact-header">
+                <h2 class="compact-title">
                     <span class="title-icon">📚</span>
                     How to Play
                 </h2>
-                <p class="welcome-subtitle">Get ready for ${catTypes[selectedCat].name}'s adventure!</p>
             </div>
             
-            <div class="instructions-section">
-                <div class="info-grid">
-                    <div class="info-item">
-                        <div class="info-icon-large">🎯</div>
-                        <h4>Objective</h4>
-                        <p>Guide ${catTypes[selectedCat].name} to catch birds and grow longer while avoiding obstacles</p>
+            <div class="compact-instructions">
+                <div class="compact-info-grid">
+                    <div class="compact-info-item">
+                        <span class="info-icon">🎯</span>
+                        <span>Catch birds to grow longer</span>
                     </div>
-                    <div class="info-item">
-                        <div class="info-icon-large">🕹️</div>
-                        <h4>Controls</h4>
-                        <p>Use arrow keys, WASD, or swipe gestures to move your cat</p>
+                    <div class="compact-info-item">
+                        <span class="info-icon">🕹️</span>
+                        <span>Use arrows or swipe to move</span>
                     </div>
-                    <div class="info-item">
-                        <div class="info-icon-large">🐶</div>
-                        <h4>Obstacles</h4>
-                        <p>Dogs guard birds for 10 seconds - plan your route carefully!</p>
+                    <div class="compact-info-item">
+                        <span class="info-icon">🐶</span>
+                        <span>Avoid dogs guarding birds</span>
                     </div>
-                    <div class="info-item">
-                        <div class="info-icon-large">🥫</div>
-                        <h4>Bonus Items</h4>
-                        <p>Tuna cans give 50 points but disappear quickly - risk vs reward!</p>
+                    <div class="compact-info-item">
+                        <span class="info-icon">🥫</span>
+                        <span>Collect tuna for bonus points</span>
                     </div>
                 </div>
             </div>
             
-            <div class="step-navigation">
-                <button id="prevStepBtn" class="step-btn prev-btn">
-                    <span class="btn-icon">←</span>
-                    <span class="btn-text">Back to Speed</span>
+            <div class="compact-navigation">
+                <button id="prevStepBtn" class="compact-btn prev-btn">
+                    ← Back
                 </button>
-                <button id="startBtn" class="step-btn start-btn">
-                    <span class="btn-icon">🎮</span>
-                    <span class="btn-text">Start Adventure!</span>
+                <button id="startBtn" class="compact-btn start-btn">
+                    🎮 Start Game
                 </button>
             </div>
         </div>
@@ -905,70 +856,47 @@ function getCatTrait(catType) {
     return traits[catType] || 'Special Cat';
 }
 
-// Step 1: Setup character selection
+// Step 1: Setup compact character selection
 function setupStep1CatSelection() {
-    const catOptions = gameMessage.querySelectorAll('.cat-option');
+    const catOptions = gameMessage.querySelectorAll('.compact-cat-option');
     const nextBtn = gameMessage.querySelector('#nextStepBtn');
     
     catOptions.forEach(option => {
-        // Enhanced click handling
         option.addEventListener('click', () => {
-            catOptions.forEach(opt => {
-                opt.classList.remove('selected');
-                opt.style.transform = '';
-            });
+            catOptions.forEach(opt => opt.classList.remove('selected'));
             option.classList.add('selected');
-            option.style.transform = 'scale(1.05)';
             
             selectedCat = option.dataset.cat;
             localStorage.setItem('selectedCat', selectedCat);
             
-            // Enable next button
             nextBtn.disabled = false;
-            nextBtn.classList.add('enabled');
-            
-            // Haptic feedback
-            hapticFeedback([10]);
-            
-            // Reset transform after animation
-            setTimeout(() => {
-                option.style.transform = '';
-            }, 200);
-        });
-        
-        // Enhanced hover effects
-        option.addEventListener('mouseenter', () => {
-            if (!option.classList.contains('selected')) {
-                option.style.transform = 'translateY(-4px) scale(1.02)';
-            }
-        });
-        
-        option.addEventListener('mouseleave', () => {
-            if (!option.classList.contains('selected')) {
-                option.style.transform = '';
-            }
+            hapticFeedback([5]);
         });
     });
     
-    // Next button handler
     nextBtn.addEventListener('click', () => {
-        welcomeStep = 2;
-        showCharacterSelection();
-        hapticFeedback([5]);
+        if (!nextBtn.disabled) {
+            welcomeStep = 2;
+            showCharacterSelection();
+            hapticFeedback([5]);
+        }
     });
     
-    // Enable next button if cat is already selected
+    // Auto-select if we have a saved selection
     if (selectedCat) {
-        nextBtn.disabled = false;
-        nextBtn.classList.add('enabled');
+        const selectedOption = gameMessage.querySelector(`[data-cat="${selectedCat}"]`);
+        if (selectedOption) {
+            selectedOption.classList.add('selected');
+            nextBtn.disabled = false;
+        }
     }
 }
 
-// Step 2: Setup speed selection
+// Step 2: Setup compact speed selection
 function setupStep2SpeedSelection() {
     const menuSpeedSlider = gameMessage.querySelector('#menuSpeedSlider');
     const menuSpeedValue = gameMessage.querySelector('#menuSpeedValue');
-    const presetBtns = gameMessage.querySelectorAll('.preset-btn');
+    const presetBtns = gameMessage.querySelectorAll('.compact-preset-btn');
     const prevBtn = gameMessage.querySelector('#prevStepBtn');
     const nextBtn = gameMessage.querySelector('#nextStepBtn');
     
@@ -976,8 +904,9 @@ function setupStep2SpeedSelection() {
     menuSpeedSlider.addEventListener('input', () => {
         currentSpeed = parseInt(menuSpeedSlider.value);
         menuSpeedValue.textContent = currentSpeed;
-        updateSpeedPreview();
+        localStorage.setItem('gameSpeed', currentSpeed);
         updatePresetButtons();
+        hapticFeedback([3]);
     });
     
     // Preset button handling
@@ -987,7 +916,7 @@ function setupStep2SpeedSelection() {
             currentSpeed = speed;
             menuSpeedSlider.value = speed;
             menuSpeedValue.textContent = speed;
-            updateSpeedPreview();
+            localStorage.setItem('gameSpeed', currentSpeed);
             updatePresetButtons();
             hapticFeedback([5]);
         });
@@ -1006,13 +935,6 @@ function setupStep2SpeedSelection() {
         hapticFeedback([5]);
     });
     
-    function updateSpeedPreview() {
-        const indicator = gameMessage.querySelector('.speed-indicator');
-        if (indicator) {
-            indicator.style.animationDuration = `${(11 - currentSpeed) * 0.2}s`;
-        }
-    }
-    
     function updatePresetButtons() {
         presetBtns.forEach(btn => btn.classList.remove('active'));
         
@@ -1024,9 +946,11 @@ function setupStep2SpeedSelection() {
             presetBtns[2].classList.add('active');
         }
     }
+    
+    updatePresetButtons();
 }
 
-// Step 3: Setup instructions
+// Step 3: Setup compact instructions
 function setupStep3Instructions() {
     const prevBtn = gameMessage.querySelector('#prevStepBtn');
     const startBtn = gameMessage.querySelector('#startBtn');
@@ -1043,7 +967,6 @@ function setupStep3Instructions() {
         hapticFeedback([10, 20]);
     });
 }
-*/
 
 // Hide overlay
 function hideOverlay() {

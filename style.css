@@ -177,9 +177,10 @@ body::before {
 
 .score-container {
     display: flex;
-    gap: 16px;
+    gap: 12px;
     width: 100%;
-    max-width: 240px;
+    max-width: 280px;
+    align-items: center;
 }
 
 .score-card {
@@ -206,6 +207,34 @@ body::before {
     font-weight: 700;
     color: var(--ios-label-primary);
     font-variant-numeric: tabular-nums;
+}
+
+/* Header Pause Button */
+.header-pause-btn {
+    background: linear-gradient(135deg, #007AFF, #5856D6);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: #FFFFFF;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.header-pause-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 122, 255, 0.4);
+}
+
+.header-pause-btn:active {
+    transform: scale(0.95);
 }
 
 /* iOS Game Main Area */
@@ -245,9 +274,6 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(20px);
-    border-radius: var(--ios-radius-xl);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -261,11 +287,6 @@ body::before {
 }
 
 .game-message {
-    background: var(--ios-fill-secondary);
-    border-radius: var(--ios-radius-lg);
-    padding: 24px;
-    border: 1px solid var(--ios-separator);
-    box-shadow: var(--ios-shadow-lg);
     text-align: center;
     max-width: 90%;
     max-height: 90%;
@@ -287,101 +308,7 @@ body::before {
     margin-bottom: 8px;
 }
 
-/* iOS Touch Controls */
-.touch-controls {
-    width: 100%;
-    padding: 0 20px;
-    margin-top: 8px;
-}
 
-.controls-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 320px;
-    margin: 0 auto;
-}
-
-.d-pad {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 4px;
-    width: 120px;
-    height: 120px;
-}
-
-.d-up {
-    grid-column: 2;
-    grid-row: 1;
-}
-
-.d-middle {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    display: flex;
-    justify-content: space-between;
-    gap: 4px;
-}
-
-.d-left, .d-right {
-    width: 36px;
-}
-
-.d-down {
-    grid-column: 2;
-    grid-row: 3;
-}
-
-.touch-button {
-    background: var(--ios-fill-secondary);
-    border: 1px solid var(--ios-separator);
-    border-radius: var(--ios-radius-md);
-    color: var(--ios-label-primary);
-    font-size: 18px;
-    font-weight: 600;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    user-select: none;
-    -webkit-user-select: none;
-    backdrop-filter: blur(10px);
-    box-shadow: var(--ios-shadow-sm);
-}
-
-.touch-button:hover {
-    background: var(--ios-fill-tertiary);
-    transform: scale(1.05);
-}
-
-.touch-button:active {
-    background: var(--ios-blue);
-    transform: scale(0.95);
-    box-shadow: var(--ios-shadow-md);
-}
-
-.action-button {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: var(--ios-blue);
-    border: none;
-    color: white;
-    font-size: 20px;
-    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
-}
-
-.action-button:hover {
-    background: #0051D5;
-}
-
-.action-button:active {
-    transform: scale(0.9);
-}
 
 /* iOS Buttons */
 .game-btn {
@@ -432,8 +359,8 @@ body::before {
 }
 
 .step-dot {
-    width: 12px;
-    height: 12px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: var(--ios-separator);
     transition: all 0.3s ease;
@@ -1076,59 +1003,59 @@ body::before {
     font-weight: 500;
 }
 
-/* iOS Responsive Design */
+/* iOS Responsive Design - Optimized for iPhone SE */
 @media (max-width: 480px) {
     .ios-safe-container {
-        padding: max(env(safe-area-inset-top, 20px), 20px) env(safe-area-inset-right, 16px) max(env(safe-area-inset-bottom, 20px), 20px) env(safe-area-inset-left, 16px);
+        padding: max(env(safe-area-inset-top, 12px), 12px) env(safe-area-inset-right, 8px) max(env(safe-area-inset-bottom, 12px), 12px) env(safe-area-inset-left, 8px);
     }
     
     .game-header {
-        max-width: min(380px, 95vw);
-        padding: 10px 16px;
-        margin: 10px 0 12px 0;
+        max-width: min(360px, 98vw);
+        padding: 8px 12px;
+        margin: 6px 0 8px 0;
     }
     
     .game-title {
-        font-size: 1.25rem;
-    }
-    
-    .title-icon {
-        font-size: 1.5rem;
-    }
-    
-    .score-container {
-        gap: 12px;
-    }
-    
-    .score-card {
-        padding: 10px;
-    }
-    
-    .score-label {
-        font-size: 0.7rem;
-    }
-    
-    .score-value {
         font-size: 1.1rem;
     }
     
+    .title-icon {
+        font-size: 1.3rem;
+    }
+    
+    .score-container {
+        gap: 8px;
+    }
+    
+    .score-card {
+        padding: 8px;
+    }
+    
+    .score-label {
+        font-size: 0.65rem;
+    }
+    
+    .score-value {
+        font-size: 1rem;
+    }
+    
     .game-main {
-        max-width: min(380px, 95vw);
-        gap: 12px;
+        max-width: min(360px, 98vw);
+        gap: 8px;
     }
     
     .game-area {
-        padding: 12px;
+        padding: 8px;
     }
     
     #gameCanvas {
-        width: min(370px, 90vw);
+        width: min(350px, 95vw);
         height: auto;
     }
     
     .game-message {
-        padding: 20px;
-        max-width: 95%;
+        padding: 16px;
+        max-width: 98%;
     }
     
     .game-message h2 {
@@ -1228,26 +1155,97 @@ body::before {
         padding: 14px 28px;
         min-width: 180px;
     }
-    
-    .touch-button {
-        width: 44px;
-        height: 44px;
-        font-size: 16px;
+}
+
+/* iPhone SE Specific Optimizations */
+@media (max-width: 375px) {
+    .ios-safe-container {
+        padding: max(env(safe-area-inset-top, 8px), 8px) env(safe-area-inset-right, 6px) max(env(safe-area-inset-bottom, 8px), 8px) env(safe-area-inset-left, 6px);
     }
     
-    .d-pad {
-        width: 140px;
-        height: 140px;
+    .game-header {
+        max-width: min(340px, 99vw);
+        padding: 6px 10px;
+        margin: 4px 0 6px 0;
     }
     
-    .d-left, .d-right {
-        width: 44px;
+    .game-title {
+        font-size: 1rem;
     }
     
-    .action-button {
-        width: 56px;
-        height: 56px;
-        font-size: 22px;
+    .title-icon {
+        font-size: 1.2rem;
+    }
+    
+    .score-container {
+        gap: 6px;
+    }
+    
+    .score-card {
+        padding: 6px;
+    }
+    
+    .score-label {
+        font-size: 0.6rem;
+    }
+    
+    .score-value {
+        font-size: 0.9rem;
+    }
+    
+    .game-main {
+        max-width: min(340px, 99vw);
+        gap: 6px;
+    }
+    
+    .game-area {
+        padding: 6px;
+    }
+    
+    #gameCanvas {
+        width: min(330px, 96vw);
+        height: auto;
+    }
+    
+    .game-message {
+        padding: 12px;
+        max-width: 99%;
+    }
+    
+    .game-message h2 {
+        font-size: 1.1rem;
+    }
+    
+    .welcome-title {
+        font-size: 1.2rem;
+    }
+    
+    .welcome-subtitle {
+        font-size: 0.8rem;
+    }
+    
+    .compact-welcome-container {
+        max-width: 320px;
+        height: 320px;
+        padding: 16px;
+    }
+    
+    .compact-title {
+        font-size: 1.1rem;
+    }
+    
+    .compact-cat-option {
+        width: 55px;
+        height: 65px;
+    }
+    
+    .compact-cat-preview {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .compact-cat-name {
+        font-size: 0.65rem;
     }
 }
 
@@ -1276,7 +1274,6 @@ body::before {
 
 /* Focus management for accessibility */
 .game-btn:focus,
-.touch-button:focus,
 .cat-option:focus,
 .slider:focus {
     outline: 2px solid var(--ios-blue);
@@ -1284,6 +1281,284 @@ body::before {
 }
 
 /* Hidden elements for better screen reader support */
+/* Compact Welcome Sequence Styles (390x420px) - Ultra Compact for iPhone SE */
+.compact-welcome-container {
+    width: 100%;
+    max-width: 360px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.compact-step-indicator {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 4px;
+}
+
+.compact-step-indicator .step-dot {
+    width: 5px;
+    height: 5px;
+}
+
+.compact-header {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.compact-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.compact-title .title-icon {
+    font-size: 1.3rem;
+    margin-right: 4px;
+}
+
+/* Compact Cat Selection */
+.compact-cat-grid {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 15px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 160px;
+}
+
+.compact-cat-option {
+    width: 60px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+    flex: 1;
+    text-align: center;
+}
+
+.compact-cat-option:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.compact-cat-option.selected {
+    background: linear-gradient(135deg, #007AFF, #5856D6);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 15px rgba(0, 122, 255, 0.4);
+}
+
+.compact-cat-preview {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.compact-cat-name {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    text-align: center;
+    width: 100%;
+    line-height: 1.2;
+}
+
+/* Compact Speed Selection */
+.compact-speed-section {
+    width: 100%;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.compact-speed-presets {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 220px;
+}
+
+.compact-preset-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid transparent;
+    border-radius: 5px;
+    padding: 4px 6px;
+    color: #FFFFFF;
+    font-size: 0.6rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    flex: 1;
+}
+
+.compact-preset-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.compact-preset-btn.active {
+    background: linear-gradient(135deg, #007AFF, #5856D6);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.compact-preset-btn .preset-icon {
+    font-size: 0.9rem;
+}
+
+.compact-preset-btn .preset-name {
+    font-size: 0.5rem;
+}
+
+.compact-speed-slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.compact-speed-slider label {
+    color: #FFFFFF;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.compact-slider {
+    width: 140px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.compact-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(135deg, #007AFF, #5856D6);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 122, 255, 0.4);
+}
+
+.compact-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(135deg, #007AFF, #5856D6);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 122, 255, 0.4);
+}
+
+/* Compact Instructions */
+.compact-instructions {
+    width: 100%;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.compact-info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.compact-info-item {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 5px 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.6rem;
+    color: #FFFFFF;
+    width: 100%;
+}
+
+.compact-info-item .info-icon {
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+/* Compact Navigation */
+.compact-navigation {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 260px;
+}
+
+.compact-btn {
+    background: linear-gradient(135deg, #007AFF, #5856D6);
+    border: none;
+    border-radius: 8px;
+    padding: 7px 12px;
+    color: #FFFFFF;
+    font-size: 0.7rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 12px rgba(0, 122, 255, 0.3);
+    flex: 1;
+    text-align: center;
+}
+
+.compact-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 122, 255, 0.4);
+}
+
+.compact-btn:disabled {
+    background: rgba(255, 255, 255, 0.2);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.compact-btn.prev-btn {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.compact-btn.start-btn {
+    background: linear-gradient(135deg, #30D158, #34C759);
+    box-shadow: 0 4px 15px rgba(48, 209, 88, 0.3);
+}
+
+.compact-btn.start-btn:hover {
+    box-shadow: 0 6px 20px rgba(48, 209, 88, 0.4);
+}
+
 .hidden {
     display: none !important;
 } 

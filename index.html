@@ -30,7 +30,7 @@
         <header class="game-header" role="banner">
             <h1 class="game-title">
                 <span class="title-icon" aria-hidden="true">🐱</span>
-                <span class="title-text">Cat & Birds (Direct Start)</span>
+                <span class="title-text">Cat & Birds (Local Dev)</span>
             </h1>
             
             <!-- Score Container with iOS styling -->
@@ -43,6 +43,13 @@
                     <div class="score-label" aria-label="Best Score">Best</div>
                     <div id="high-score" class="score-value" aria-live="polite">0</div>
                 </div>
+                <!-- Pause Button moved to header -->
+                <button class="header-pause-btn" 
+                        id="pauseBtn" 
+                        aria-label="Pause Game"
+                        type="button">
+                    <span aria-hidden="true">⏸</span>
+                </button>
             </div>
         </header>
 
@@ -65,48 +72,7 @@
                 </div>
             </div>
 
-            <!-- iOS Touch Controls -->
-            <div class="touch-controls" role="group" aria-label="Game Controls">
-                <div class="controls-container">
-                    <!-- D-Pad -->
-                    <div class="d-pad" role="group" aria-label="Direction Controls">
-                        <button class="touch-button d-up" 
-                                data-direction="up" 
-                                aria-label="Move Up"
-                                type="button">
-                            <span aria-hidden="true">↑</span>
-                        </button>
-                        <div class="d-middle">
-                            <button class="touch-button d-left" 
-                                    data-direction="left" 
-                                    aria-label="Move Left"
-                                    type="button">
-                                <span aria-hidden="true">←</span>
-                            </button>
-                            <button class="touch-button d-right" 
-                                    data-direction="right" 
-                                    aria-label="Move Right"
-                                    type="button">
-                                <span aria-hidden="true">→</span>
-                            </button>
-                        </div>
-                        <button class="touch-button d-down" 
-                                data-direction="down" 
-                                aria-label="Move Down"
-                                type="button">
-                            <span aria-hidden="true">↓</span>
-                        </button>
-                    </div>
-                    
-                    <!-- Action Button -->
-                    <button class="touch-button action-button" 
-                            id="pauseBtn" 
-                            aria-label="Pause Game"
-                            type="button">
-                        <span aria-hidden="true">⏸</span>
-                    </button>
-                </div>
-            </div>
+
         </main>
         
         <!-- Game Instructions (Hidden by default, screen reader accessible) -->
