@@ -1013,17 +1013,18 @@ body::before {
         max-width: min(360px, 98vw);
         padding: 10px 14px;
         margin: 6px 0 8px 0;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(8px);
         border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
     }
     
     .game-title {
         font-size: 1.3rem;
         font-weight: 700;
-        color: #2c3e50;
-        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        color: #ffffff;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
     }
     
     .title-icon {
@@ -1187,17 +1188,18 @@ body::before {
         max-width: min(340px, 99vw);
         padding: 8px 12px;
         margin: 4px 0 6px 0;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(8px);
         border-radius: 10px;
-        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
     
     .game-title {
         font-size: 1.1rem;
         font-weight: 700;
-        color: #2c3e50;
-        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        color: #ffffff;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
     }
     
     .title-icon {
