@@ -1346,7 +1346,7 @@ body::before {
 
 .compact-header {
     text-align: center;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .compact-title {
@@ -1357,6 +1357,13 @@ body::before {
     text-shadow: 0 2px 8px rgba(0, 0, 0, 1), 0 0 15px rgba(0, 0, 0, 0.8);
     letter-spacing: -0.3px;
     -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 12px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .compact-title .title-icon {
