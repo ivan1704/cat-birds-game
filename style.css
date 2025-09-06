@@ -1354,15 +1354,15 @@ body::before {
     font-weight: 800;
     color: #FFFFFF;
     margin: 0;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 1), 0 0 15px rgba(0, 0, 0, 0.8);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.4);
     letter-spacing: -0.3px;
-    -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.15);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 12px;
     padding: 12px 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
