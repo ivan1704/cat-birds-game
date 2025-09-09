@@ -1,7 +1,7 @@
 {
-  "name": "cat-birds-game",
+  "name": "bird-game",
   "version": "1.0.0",
-  "description": "A modern Snake game featuring cats chasing birds, optimized for mobile devices",
+  "description": "bird? - A modern Snake game featuring cats chasing birds, optimized for mobile devices",
   "main": "index.html",
   "scripts": {
     "start": "python3 -m http.server $PORT",

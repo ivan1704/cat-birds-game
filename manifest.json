@@ -1,7 +1,7 @@
 {
-  "name": "Cat & Birds - iOS Game",
-  "short_name": "Cat & Birds",
-  "description": "A delightful iOS game featuring adorable cats chasing birds. Choose from 5 unique cat characters and enjoy smooth gameplay with iOS-native design.",
+  "name": "bird? - iOS Game",
+  "short_name": "bird?",
+  "description": "A delightful iOS game featuring adorable cats chasing birds. Choose from unique cat characters and enjoy smooth gameplay with iOS-native design.",
   "start_url": "/",
   "display": "standalone",
   "display_override": ["fullscreen", "standalone"],
@@ -19,7 +19,7 @@
       "sizes": "375x812",
       "type": "image/svg+xml",
       "platform": "ios",
-      "label": "Cat & Birds gameplay on iPhone"
+      "label": "bird? gameplay on iPhone"
     }
   ],
   "icons": [

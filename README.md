@@ -1,4 +1,4 @@
-# 🐱 Cat & Birds - Modern Snake Game
+# 🐱 bird? - Modern Snake Game
 
 A beautifully designed Snake game featuring cats chasing birds, optimized for mobile devices and following Apple's Human Interface Guidelines.
 
