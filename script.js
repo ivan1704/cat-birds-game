@@ -514,7 +514,7 @@ function showTapToStart() {
     gameMessage.innerHTML = `
         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 20px; background: rgba(0, 0, 0, 0.9); border-radius: 15px;">
             <h1 style="color: #FFFFFF; font-size: 2.5rem; font-weight: 800; text-shadow: 0 3px 6px rgba(0, 0, 0, 1); margin-bottom: 20px; text-align: center;">
-                🐱 Cat & Birds
+                🐱 bird?
             </h1>
             <p style="color: #FFFFFF; font-size: 1.2rem; font-weight: 600; text-shadow: 0 2px 4px rgba(0, 0, 0, 1); margin-bottom: 30px; text-align: center;">
                 A fun snake game with cats!
@@ -608,7 +608,7 @@ function createFallbackButton() {
         text-align: center;
         margin: 0 0 15px 0;
     `;
-    title.innerHTML = '🐱 Cat & Birds';
+    title.innerHTML = '🐱 bird?';
     
     // Create button
     const button = document.createElement('button');
